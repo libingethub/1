@@ -1,10 +1,65 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head> 
-<meta charset="utf-8">
-<title>666</title>
-</head> 
-<frameset framespacing="0" border="0" rows="0" frameborder="0">
-<frame name="main" src="http://59.110.159.123:3000/" scrolling="auto" noresize> 
-</frameset> 
+<html>
+<head>
+    <title>合并TXT文件</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        #fileInput, #copyButton, #mergeButton {
+            margin: 10px;
+            padding: 10px;
+            font-size: 1.5em;
+        }
+        #output {
+            width: 80%;
+            height: 500px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #64eec5; /* 背景色高亮 */
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="fileInput" multiple accept=".txt">
+    <button id="mergeButton" onclick="handleFiles()">合并文件</button>
+    <button id="copyButton" onclick="copyToClipboard()">复制到剪切板</button>
+    <pre id="output"></pre>
+
+    <script>
+        function handleFiles() {
+            var fileInput = document.getElementById('fileInput');
+            var output = document.getElementById('output');
+            output.textContent = ''; // 清空输出
+
+            for (var i = 0; i < fileInput.files.length; i++) {
+                var file = fileInput.files[i];
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    output.textContent += e.target.result + '\\n';
+                };
+
+                reader.readAsText(file);
+            }
+        }
+
+        function copyToClipboard() {
+            var output = document.getElementById('output');
+            var range = document.createRange();
+            range.selectNode(output);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+        }
+    </script>
+</body>
 </html>
