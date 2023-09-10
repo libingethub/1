@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,27 +11,52 @@
             justify-content: center;
             height: 100vh;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-image: linear-gradient(125deg, #d3c2f0, #f0a2a2, #d4f3a3, #a1a6f5);
+            animation: bganimation 15s infinite;
         }
         #fileInput, #copyButton, #mergeButton {
             margin: 10px;
             padding: 10px;
-            font-size: 1.5em;
+            font-size: 1em;
+            border-radius: 5px; /* 添加圆角 */
+            border: none; /* 移除边框 */
+            background-color: #e4f8c4; /* 添加背景色 */
+            color: rgb(8, 8, 8); /* 文字颜色为白色 */
+        }
+        #fileInput:hover, #copyButton:hover, #mergeButton:hover {
+            background-color: #e6c681; /* 鼠标悬停时的背景色 */
         }
         #output {
             width: 80%;
-            height: 500px;
+            height: 200px;
+            border-radius: 5px; /* 添加圆角 */
             border: 1px solid #ccc;
             padding: 10px;
             margin-top: 20px;
-            background-color: #64eec5; /* 背景色高亮 */
+            background-color: #ffffcc; /* 背景色高亮 */
             overflow-y: scroll;
         }
+
+        @keyframes bganimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+
     </style>
 </head>
 <body>
     <input type="file" id="fileInput" multiple accept=".txt">
-    <button id="mergeButton" onclick="handleFiles()">合并文件</button>
+    <button id="mergeButton" onclick="handleFiles()">合并文件内容</button>
     <button id="copyButton" onclick="copyToClipboard()">复制到剪切板</button>
     <pre id="output"></pre>
 
@@ -63,3 +89,5 @@
     </script>
 </body>
 </html>
+
+
